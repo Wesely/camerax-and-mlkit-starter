@@ -11,4 +11,8 @@ Handled permission and a preview of camera, added an Analyzer stub for implement
     implementation "androidx.camera:camera-extensions:1.0.0-alpha15"
 ```
 
+# Preview: Object Detection
 ![](preview.gif)
+
+# Preview: Pose Detection
+![](preview-pose-detection.gif)
