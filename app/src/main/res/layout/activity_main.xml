@@ -17,14 +17,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.example.mlkitplay.LandmarksView
-        android:id="@+id/landmark_detected"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/tv_detected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@android:color/white"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/camera_preview"
-        app:layout_constraintLeft_toLeftOf="@+id/camera_preview"
-        app:layout_constraintRight_toRightOf="@+id/camera_preview"
-        app:layout_constraintTop_toTopOf="@+id/camera_preview" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Hello World!" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

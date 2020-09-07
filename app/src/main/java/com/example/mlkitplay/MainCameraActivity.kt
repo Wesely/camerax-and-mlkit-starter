@@ -3,19 +3,21 @@ package com.example.mlkitplay
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import androidx.camera.camera2.internal.ImageAnalysisConfigProvider
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainCameraActivity : AppCompatActivity() {
@@ -27,6 +29,7 @@ class MainCameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         if (isPermissionGranted(this)) {
             startCamera()
         } else {
@@ -79,13 +82,8 @@ class MainCameraActivity : AppCompatActivity() {
                 .setImageQueueDepth(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
 
-            val analyzer = MyImageAnalyzer { poseList, spec ->
-                // render landmarks, but image's resolution != screen's size
-                // TODO: don't need to calc every time, can be moved to somewhere else.
-                landmark_detected.landmarksSpec = spec
-                landmark_detected.setLandmarks(poseList)
-                landmark_detected.invalidate()
-                Log.d("pose Detected", "preview Width:${landmark_detected.width}")
+            val analyzer = MyImageAnalyzer{
+                tv_detected.text = it.joinToString(",\n")
             }
 
             imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), analyzer)
@@ -103,6 +101,4 @@ class MainCameraActivity : AppCompatActivity() {
                 setSurfaceProvider(camera_preview.createSurfaceProvider())
             }
     }
-
-
 }

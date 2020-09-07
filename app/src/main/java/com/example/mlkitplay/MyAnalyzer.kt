@@ -1,41 +1,33 @@
 package com.example.mlkitplay
 
 import android.annotation.SuppressLint
-import android.graphics.Point
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.pose.PoseDetection
-import com.google.mlkit.vision.pose.PoseDetectorOptions
-import com.google.mlkit.vision.pose.PoseLandmark
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 
 class MyImageAnalyzer(
-    val onDetected: (objects: List<PoseLandmark>, spec: Point) -> Unit
+    val onObjectDetected: (objects: List<String>) -> Unit
 ) : ImageAnalysis.Analyzer {
     @SuppressLint("UnsafeExperimentalUsageError")
     override fun analyze(imageProxy: ImageProxy) {
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+            /** To use default options */
+            val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
-            // Pose detection with streaming frames
-            val options = PoseDetectorOptions.Builder()
-                .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
-                .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_FAST)
-                .build()
-
-            /** Pose detection on static images **/
-            // val options = PoseDetectorOptions.Builder()
-            //     .setDetectorMode(PoseDetectorOptions.SINGLE_IMAGE_MODE)
-            //     .setPerformanceMode(PoseDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            /** Or, to set the minimum confidence required */
+            // val options = ImageLabelerOptions.Builder()
+            //     .setConfidenceThreshold(0.7f)
             //     .build()
+            // val labeler = ImageLabeling.getClient(options)
 
-            val poseDetector = PoseDetection.getClient(options)
-            Log.d("imageWidth", "w = ${image.width}")
-            poseDetector.process(image)
-                .addOnSuccessListener { pose ->
-                    onDetected(pose.allPoseLandmarks, Point(image.width, image.height))
+            labeler.process(image)
+                .addOnSuccessListener { labels ->
+                    // Task completed successfully
+                    onObjectDetected(labels.map { it.text }.toList())
                 }
                 .addOnFailureListener { e ->
                     // Task failed with an exception
