@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainCameraActivity : AppCompatActivity() {
     companion object {
-        const val PERMISSION_REQUESTS = 0x000001;
+        const val PERMISSION_REQUESTS = 0x000001
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,7 @@ class MainCameraActivity : AppCompatActivity() {
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener(
-            Runnable {
+            {
                 val cameraProvider = cameraProviderFuture.get()
                 bindCamera(cameraProvider)
             }, ContextCompat.getMainExecutor(this)
@@ -81,7 +81,9 @@ class MainCameraActivity : AppCompatActivity() {
                 .setImageQueueDepth(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
 
-            val analyzer = MyImageAnalyzer{}
+            val analyzer = MyImageAnalyzer{
+                tv_detected.text = it.joinToString(",\n")
+            }
 
             imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), analyzer)
 
