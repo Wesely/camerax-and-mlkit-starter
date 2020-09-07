@@ -21,9 +21,11 @@ import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainCameraActivity : AppCompatActivity() {
+
     companion object {
         const val PERMISSION_REQUESTS = 0x000001
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -64,7 +66,6 @@ class MainCameraActivity : AppCompatActivity() {
         )
     }
 
-
     @SuppressLint("RestrictedApi")
     private fun bindCamera(cameraProvider: ProcessCameraProvider) {
         try {
@@ -93,7 +94,6 @@ class MainCameraActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("RestrictedApi")
     private fun buildPreview(camera: Camera): Preview {
         return Preview.Builder()
             .build()
