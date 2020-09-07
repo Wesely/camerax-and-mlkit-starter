@@ -7,6 +7,9 @@ import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Size
+import android.util.SizeF
+import android.view.View
 import android.view.WindowManager
 import androidx.camera.camera2.internal.ImageAnalysisConfigProvider
 import androidx.camera.core.Camera
@@ -79,7 +82,10 @@ class MainCameraActivity : AppCompatActivity() {
                 .setImageQueueDepth(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
 
-            val analyzer = MyImageAnalyzer { poseList, spec ->
+            camera_preview.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            val previewSize = SizeF(camera_preview.width.toFloat(), camera_preview.height.toFloat())
+
+            val analyzer = MyImageAnalyzer(previewSize) { poseList, spec ->
                 // render landmarks, but image's resolution != screen's size
                 // TODO: don't need to calc every time, can be moved to somewhere else.
                 landmark_detected.landmarksSpec = spec

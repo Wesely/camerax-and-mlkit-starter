@@ -3,6 +3,7 @@ package com.example.mlkitplay
 import android.annotation.SuppressLint
 import android.graphics.Point
 import android.util.Log
+import android.util.SizeF
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
@@ -11,6 +12,7 @@ import com.google.mlkit.vision.pose.PoseDetectorOptions
 import com.google.mlkit.vision.pose.PoseLandmark
 
 class MyImageAnalyzer(
+    val previewSize: SizeF,
     val onDetected: (objects: List<PoseLandmark>, spec: Point) -> Unit
 ) : ImageAnalysis.Analyzer {
     @SuppressLint("UnsafeExperimentalUsageError")

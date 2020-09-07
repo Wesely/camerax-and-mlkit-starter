@@ -11,6 +11,7 @@
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/camera_preview"
         app:layout_constraintLeft_toLeftOf="@+id/camera_preview"
         app:layout_constraintRight_toRightOf="@+id/camera_preview"
-        app:layout_constraintTop_toTopOf="@+id/camera_preview" />
+        app:layout_constraintTop_toTopOf="@+id/camera_preview"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

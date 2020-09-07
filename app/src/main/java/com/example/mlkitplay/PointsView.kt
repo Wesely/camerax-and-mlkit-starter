@@ -35,7 +35,7 @@ class LandmarksView(context: Context, attrs: AttributeSet) : View(context, attrs
                 val ry = height * 1f / landmarksSpec.y
                 Log.d("onDraw", "Canvas x = $width, y = $height")
                 Log.d("onDraw", "landmarkSpec x = ${landmarksSpec.x}, y = ${landmarksSpec.y}")
-                drawPoint(pose.position.x * rx, pose.position.y * ry / 1.2f - 100, pointPaint)
+                drawPoint(pose.position.x * rx * 1.33f, pose.position.y * 2.65f+ 140, pointPaint)
             }
         }
     }
