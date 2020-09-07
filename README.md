@@ -10,3 +10,5 @@ Handled permission and a preview of camera, added an Analyzer stub for implement
     implementation "androidx.camera:camera-view:1.0.0-alpha15"
     implementation "androidx.camera:camera-extensions:1.0.0-alpha15"
 ```
+
+![](preview.gif)
